@@ -3,7 +3,7 @@
 
 [![NPM](https://nodei.co/npm/gulp-awspublish.png?downloads=true)](https://www.npmjs.com/package/gulp-awspublish)
 
-[![apidoc](https://npmdoc.github.io/node-npmdoc-gulp-awspublish/build/screenCapture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-gulp-awspublish_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-gulp-awspublish/build..beta..travis-ci.org/apidoc.html)
+[![apidoc](https://npmdoc.github.io/node-npmdoc-gulp-awspublish/build/screenCapture.buildNpmdoc.browser._2Fhome_2Ftravis_2Fbuild_2Fnpmdoc_2Fnode-npmdoc-gulp-awspublish_2Ftmp_2Fbuild_2Fapidoc.html.png)](https://npmdoc.github.io/node-npmdoc-gulp-awspublish/build/apidoc.html)
 
 ![npmPackageListing](https://npmdoc.github.io/node-npmdoc-gulp-awspublish/build/screenCapture.npmPackageListing.svg)
 
