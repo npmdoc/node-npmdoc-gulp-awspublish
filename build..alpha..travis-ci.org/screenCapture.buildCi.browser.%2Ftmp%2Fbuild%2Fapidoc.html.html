@@ -1,4 +1,4 @@
-<div class="apidocDiv">
+<html><head></head><body><div class="apidocDiv">
 <style>
 /*csslint
 */
@@ -47,17 +47,10 @@
 }
 </style>
 <h1>api documentation for
-    <a
-
-        href="https://github.com/pgherveou/gulp-awspublish"
-
-    >gulp-awspublish (v3.3.0)</a>
+    <a href="https://github.com/pgherveou/gulp-awspublish">gulp-awspublish (v3.3.0)</a>
 </h1>
 <h4>gulp plugin to publish files to amazon s3</h4>
-<div class="apidocSectionDiv"><a
-    href="#apidoc.tableOfContents"
-    id="apidoc.tableOfContents"
-><h1>table of contents</h1></a><ol>
+<div class="apidocSectionDiv"><a href="#apidoc.tableOfContents" id="apidoc.tableOfContents"><h1>table of contents</h1></a><ol>
 
     <li class="apidocModuleLi"><a href="#apidoc.module.gulp-awspublish">module gulp-awspublish</a><ol>
 
@@ -237,12 +230,12 @@
   var headers = file.s3.headers || {};
 
   for (var header in headers) {
-    if (header === &#x27;x-amz-acl&#x27;) {
+    if (header === 'x-amz-acl') {
 
       params.ACL = headers[header];
-    } else if(header ===&#x27;Content-MD5&#x27;) {
+    } else if(header ==='Content-MD5') {
 
-       params[&#x27;ContentMD5&#x27;] = headers[header];
+       params['ContentMD5'] = headers[header];
     } else {
 
       params[pascalCase(header)] = headers[header];
@@ -288,19 +281,19 @@
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```javascript
-var awspublish = require(&#x27;gulp-awspublish&#x27;);
+var awspublish = require('gulp-awspublish');
 
-gulp.task(&#x27;publish&#x27;, function() {
+gulp.task('publish', function() {
 
 // create a new publisher using S3 options
 // http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property
 var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
-  region: &#x27;your-region-id&#x27;,
+  region: 'your-region-id',
   params: {
-    Bucket: &#x27;...&#x27;
+    Bucket: '...'
   }
 }, {
-  cacheFileName: &#x27;your-cache-location&#x27;
+  cacheFileName: 'your-cache-location'
 });
 ...</pre></li>
     </ul>
@@ -317,7 +310,7 @@ var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
     <li>description and source-code<pre class="apidocCodePre">gzip = function (options) {
 
   if (!options) options = {};
-  if (!options.ext) options.ext = &#x27;&#x27;;
+  if (!options.ext) options.ext = '';
 
   return through.obj(function (file, enc, cb) {
 
@@ -326,8 +319,8 @@ var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
 
     // streams not supported
     if (file.isStream()) {
-      this.emit(&#x27;error&#x27;,
-        new gutil.PluginError(PLUGIN_NAME, &#x27;Stream content is not supported&#x27;));
+      this.emit('error',
+        new gutil.PluginError(PLUGIN_NAME, 'Stream content is not supported'));
       return cb();
     }
 
@@ -337,7 +330,7 @@ var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
       initFile(file);
 
       // add content-encoding header
-      file.s3.headers[&#x27;Content-Encoding&#x27;] = &#x27;gzip&#x27;;
+      file.s3.headers['Content-Encoding'] = 'gzip';
 
       // zip file
       zlib.gzip(file.contents, options, function(err, buf) {
@@ -353,13 +346,13 @@ var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
   var headers = {
-&#x27;Cache-Control&#x27;: &#x27;max-age=315360000, no-transform, public&#x27;
+'Cache-Control': 'max-age=315360000, no-transform, public'
 // ...
   };
 
-  return gulp.src(&#x27;./public/*.js&#x27;)
+  return gulp.src('./public/*.js')
  // gzip, Set Content-Encoding headers and add .gz extension
-.pipe(awspublish.<span class="apidocCodeKeywordSpan">gzip</span>({ ext: &#x27;.gz&#x27; }))
+.pipe(awspublish.<span class="apidocCodeKeywordSpan">gzip</span>({ ext: '.gz' }))
 
 // publisher will add Content-Length, Content-Type and headers specified above
 // If not specified it will set x-amz-acl to public-read by default
@@ -380,7 +373,7 @@ var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">reporter = function (param) {
-  return require(&#x27;./log-reporter&#x27;)(param);
+  return require('./log-reporter')(param);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
     // If not specified it will set x-amz-acl to public-read by default
@@ -449,12 +442,12 @@ var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
   var headers = file.s3.headers || {};
 
   for (var header in headers) {
-    if (header === &#x27;x-amz-acl&#x27;) {
+    if (header === 'x-amz-acl') {
 
       params.ACL = headers[header];
-    } else if(header ===&#x27;Content-MD5&#x27;) {
+    } else if(header ==='Content-MD5') {
 
-       params[&#x27;ContentMD5&#x27;] = headers[header];
+       params['ContentMD5'] = headers[header];
     } else {
 
       params[pascalCase(header)] = headers[header];
@@ -510,19 +503,19 @@ var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
 ```javascript
-var awspublish = require(&#x27;gulp-awspublish&#x27;);
+var awspublish = require('gulp-awspublish');
 
-gulp.task(&#x27;publish&#x27;, function() {
+gulp.task('publish', function() {
 
 // create a new publisher using S3 options
 // http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property
 var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
-  region: &#x27;your-region-id&#x27;,
+  region: 'your-region-id',
   params: {
-    Bucket: &#x27;...&#x27;
+    Bucket: '...'
   }
 }, {
-  cacheFileName: &#x27;your-cache-location&#x27;
+  cacheFileName: 'your-cache-location'
 });
 ...</pre></li>
     </ul>
@@ -544,7 +537,7 @@ var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
     <li>description and source-code<pre class="apidocCodePre">gzip = function (options) {
 
   if (!options) options = {};
-  if (!options.ext) options.ext = &#x27;&#x27;;
+  if (!options.ext) options.ext = '';
 
   return through.obj(function (file, enc, cb) {
 
@@ -553,8 +546,8 @@ var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
 
     // streams not supported
     if (file.isStream()) {
-      this.emit(&#x27;error&#x27;,
-        new gutil.PluginError(PLUGIN_NAME, &#x27;Stream content is not supported&#x27;));
+      this.emit('error',
+        new gutil.PluginError(PLUGIN_NAME, 'Stream content is not supported'));
       return cb();
     }
 
@@ -564,7 +557,7 @@ var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
       initFile(file);
 
       // add content-encoding header
-      file.s3.headers[&#x27;Content-Encoding&#x27;] = &#x27;gzip&#x27;;
+      file.s3.headers['Content-Encoding'] = 'gzip';
 
       // zip file
       zlib.gzip(file.contents, options, function(err, buf) {
@@ -580,13 +573,13 @@ var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
   var headers = {
-&#x27;Cache-Control&#x27;: &#x27;max-age=315360000, no-transform, public&#x27;
+'Cache-Control': 'max-age=315360000, no-transform, public'
 // ...
   };
 
-  return gulp.src(&#x27;./public/*.js&#x27;)
+  return gulp.src('./public/*.js')
  // gzip, Set Content-Encoding headers and add .gz extension
-.pipe(awspublish.<span class="apidocCodeKeywordSpan">gzip</span>({ ext: &#x27;.gz&#x27; }))
+.pipe(awspublish.<span class="apidocCodeKeywordSpan">gzip</span>({ ext: '.gz' }))
 
 // publisher will add Content-Length, Content-Type and headers specified above
 // If not specified it will set x-amz-acl to public-read by default
@@ -612,7 +605,7 @@ var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
     </h2>
     <ul>
     <li>description and source-code<pre class="apidocCodePre">reporter = function (param) {
-  return require(&#x27;./log-reporter&#x27;)(param);
+  return require('./log-reporter')(param);
 }</pre></li>
     <li>example usage<pre class="apidocCodePre">...
     // If not specified it will set x-amz-acl to public-read by default
@@ -642,3 +635,4 @@ var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
     ]
 </div>
 </div>
+</body></html>
