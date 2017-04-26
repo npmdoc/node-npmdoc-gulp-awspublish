@@ -81,15 +81,6 @@
 
         <li>
 
-            <a class="apidocElementLiA" href="#apidoc.element.gulp-awspublish.converter">
-            function <span class="apidocSignatureSpan">gulp-awspublish.</span>converter
-            <span class="apidocSignatureSpan">(nodeFilter)</span>
-            </a>
-
-        </li>
-
-        <li>
-
             <a class="apidocElementLiA" href="#apidoc.element.gulp-awspublish.create">
             function <span class="apidocSignatureSpan">gulp-awspublish.</span>create
             <span class="apidocSignatureSpan">(AWSConfig, cacheOptions)</span>
@@ -109,84 +100,6 @@
         <li>
 
             <a class="apidocElementLiA" href="#apidoc.element.gulp-awspublish.reporter">
-            function <span class="apidocSignatureSpan">gulp-awspublish.</span>reporter
-            <span class="apidocSignatureSpan">(param)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-awspublish._buildDeleteMultiple">module gulp-awspublish._buildDeleteMultiple</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.gulp-awspublish._buildDeleteMultiple._buildDeleteMultiple">
-            function <span class="apidocSignatureSpan">gulp-awspublish.</span>_buildDeleteMultiple
-            <span class="apidocSignatureSpan">(keys)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-awspublish._toAwsParams">module gulp-awspublish._toAwsParams</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.gulp-awspublish._toAwsParams._toAwsParams">
-            function <span class="apidocSignatureSpan">gulp-awspublish.</span>_toAwsParams
-            <span class="apidocSignatureSpan">(file)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-awspublish.converter">module gulp-awspublish.converter</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.gulp-awspublish.converter.converter">
-            function <span class="apidocSignatureSpan">gulp-awspublish.</span>converter
-            <span class="apidocSignatureSpan">(nodeFilter)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-awspublish.create">module gulp-awspublish.create</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.gulp-awspublish.create.create">
-            function <span class="apidocSignatureSpan">gulp-awspublish.</span>create
-            <span class="apidocSignatureSpan">(AWSConfig, cacheOptions)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-awspublish.gzip">module gulp-awspublish.gzip</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.gulp-awspublish.gzip.gzip">
-            function <span class="apidocSignatureSpan">gulp-awspublish.</span>gzip
-            <span class="apidocSignatureSpan">(options)</span>
-            </a>
-
-        </li>
-
-    </ol></li>
-
-    <li class="apidocModuleLi"><a href="#apidoc.module.gulp-awspublish.reporter">module gulp-awspublish.reporter</a><ol>
-
-        <li>
-
-            <a class="apidocElementLiA" href="#apidoc.element.gulp-awspublish.reporter.reporter">
             function <span class="apidocSignatureSpan">gulp-awspublish.</span>reporter
             <span class="apidocSignatureSpan">(param)</span>
             </a>
@@ -219,7 +132,23 @@
     }
   };
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    <li>example usage<pre class="apidocCodePre">...
+
+  // remove files
+  before(function (done) {
+try { fs.unlinkSync(path.join(__dirname, publisher.getCacheFilename())); } catch (err) { }
+try { fs.unlinkSync(path.join(__dirname, &#x27;../testCacheFile&#x27;)); } catch (err) { }
+publisher._cache = {};
+
+var deleteParams = awspublish.<span class="apidocCodeKeywordSpan">_buildDeleteMultiple</span>([
+  &#x27;test/hello.txt&#x27;,
+  &#x27;test/hello2.txt&#x27;,
+  &#x27;test/hello3.txt&#x27;,
+  &#x27;test/hello.txtgz&#x27;
+]);
+
+publisher.client.deleteObjects(deleteParams, done);
+...</pre></li>
     </ul>
 
 
@@ -254,24 +183,22 @@
 
   return params;
 }</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
+    <li>example usage<pre class="apidocCodePre">...
+      path: name + &#x27;.txt&#x27;,
+      headers: { &#x27;Content-Type&#x27;: &#x27;text/plain; charset=utf-8&#x27; }
+    },
+    contents: new Buffer(&#x27;hello world&#x27;)
+  };
 
+  beforeEach(function (done) {
+    var params = awspublish.<span class="apidocCodeKeywordSpan">_toAwsParams</span>(file);
+    publisher.client.putObject(params, done);
+  });
+});
 
-
-    <h2>
-        <a href="#apidoc.element.gulp-awspublish.converter" id="apidoc.element.gulp-awspublish.converter">
-        function <span class="apidocSignatureSpan">gulp-awspublish.</span>converter
-        <span class="apidocSignatureSpan">(nodeFilter)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">converter = function (nodeFilter) {
-  var nodes = xmlNodes(nodeFilter);
-  var objects = xmlObjects({ explicitRoot: false, explicitArray: false, mergeAttrs: true });
-  return pumpify.obj(nodes, objects)
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+it(&#x27;should sync bucket with published data&#x27;, function (done) {
+  var stream = gutil.noop();
+...</pre></li>
     </ul>
 
 
@@ -374,238 +301,6 @@ var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
 
     <h2>
         <a href="#apidoc.element.gulp-awspublish.reporter" id="apidoc.element.gulp-awspublish.reporter">
-        function <span class="apidocSignatureSpan">gulp-awspublish.</span>reporter
-        <span class="apidocSignatureSpan">(param)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">reporter = function (param) {
-  return require(&#x27;./log-reporter&#x27;)(param);
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-    // If not specified it will set x-amz-acl to public-read by default
-    .pipe(publisher.publish(headers))
-
-    // create a cache file to speed up consecutive uploads
-    .pipe(publisher.cache())
-
-     // print upload updates to console
-    .pipe(awspublish.<span class="apidocCodeKeywordSpan">reporter</span>());
-});
-
-// output
-// [gulp] [create] file1.js.gz
-// [gulp] [create] file2.js.gz
-// [gulp] [update] file3.js.gz
-// [gulp] [cache]  file3.js.gz
-...</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.gulp-awspublish._buildDeleteMultiple" id="apidoc.module.gulp-awspublish._buildDeleteMultiple">module gulp-awspublish._buildDeleteMultiple</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.gulp-awspublish._buildDeleteMultiple._buildDeleteMultiple" id="apidoc.element.gulp-awspublish._buildDeleteMultiple._buildDeleteMultiple">
-        function <span class="apidocSignatureSpan">gulp-awspublish.</span>_buildDeleteMultiple
-        <span class="apidocSignatureSpan">(keys)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function buildDeleteMultiple(keys) {
-  if (!keys || !keys.length) return;
-
-  var deleteObjects = keys.map(function (k) { return { Key: k }; });
-
-  return {
-    Delete: {
-      Objects: deleteObjects
-    }
-  };
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.gulp-awspublish._toAwsParams" id="apidoc.module.gulp-awspublish._toAwsParams">module gulp-awspublish._toAwsParams</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.gulp-awspublish._toAwsParams._toAwsParams" id="apidoc.element.gulp-awspublish._toAwsParams._toAwsParams">
-        function <span class="apidocSignatureSpan">gulp-awspublish.</span>_toAwsParams
-        <span class="apidocSignatureSpan">(file)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">function toAwsParams(file) {
-  var params = {};
-
-  var headers = file.s3.headers || {};
-
-  for (var header in headers) {
-    if (header === &#x27;x-amz-acl&#x27;) {
-
-      params.ACL = headers[header];
-    } else if(header ===&#x27;Content-MD5&#x27;) {
-
-       params[&#x27;ContentMD5&#x27;] = headers[header];
-    } else {
-
-      params[pascalCase(header)] = headers[header];
-    }
-  }
-
-  params.Key = file.s3.path;
-  params.Body = file.contents;
-
-  return params;
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.gulp-awspublish.converter" id="apidoc.module.gulp-awspublish.converter">module gulp-awspublish.converter</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.gulp-awspublish.converter.converter" id="apidoc.element.gulp-awspublish.converter.converter">
-        function <span class="apidocSignatureSpan">gulp-awspublish.</span>converter
-        <span class="apidocSignatureSpan">(nodeFilter)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">converter = function (nodeFilter) {
-  var nodes = xmlNodes(nodeFilter);
-  var objects = xmlObjects({ explicitRoot: false, explicitArray: false, mergeAttrs: true });
-  return pumpify.obj(nodes, objects)
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.gulp-awspublish.create" id="apidoc.module.gulp-awspublish.create">module gulp-awspublish.create</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.gulp-awspublish.create.create" id="apidoc.element.gulp-awspublish.create.create">
-        function <span class="apidocSignatureSpan">gulp-awspublish.</span>create
-        <span class="apidocSignatureSpan">(AWSConfig, cacheOptions)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">create = function (AWSConfig, cacheOptions){
-  return new Publisher(AWSConfig, cacheOptions);
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-```javascript
-var awspublish = require(&#x27;gulp-awspublish&#x27;);
-
-gulp.task(&#x27;publish&#x27;, function() {
-
-// create a new publisher using S3 options
-// http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/S3.html#constructor-property
-var publisher = awspublish.<span class="apidocCodeKeywordSpan">create</span>({
-  region: &#x27;your-region-id&#x27;,
-  params: {
-    Bucket: &#x27;...&#x27;
-  }
-}, {
-  cacheFileName: &#x27;your-cache-location&#x27;
-});
-...</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.gulp-awspublish.gzip" id="apidoc.module.gulp-awspublish.gzip">module gulp-awspublish.gzip</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.gulp-awspublish.gzip.gzip" id="apidoc.element.gulp-awspublish.gzip.gzip">
-        function <span class="apidocSignatureSpan">gulp-awspublish.</span>gzip
-        <span class="apidocSignatureSpan">(options)</span>
-        </a>
-    </h2>
-    <ul>
-    <li>description and source-code<pre class="apidocCodePre">gzip = function (options) {
-
-  if (!options) options = {};
-  if (!options.ext) options.ext = &#x27;&#x27;;
-
-  return through.obj(function (file, enc, cb) {
-
-    // Do nothing if no contents
-    if (file.isNull()) return cb();
-
-    // streams not supported
-    if (file.isStream()) {
-      this.emit(&#x27;error&#x27;,
-        new gutil.PluginError(PLUGIN_NAME, &#x27;Stream content is not supported&#x27;));
-      return cb();
-    }
-
-    // check if file.contents is a `Buffer`
-    if (file.isBuffer()) {
-
-      initFile(file);
-
-      // add content-encoding header
-      file.s3.headers[&#x27;Content-Encoding&#x27;] = &#x27;gzip&#x27;;
-
-      // zip file
-      zlib.gzip(file.contents, options, function(err, buf) {
-        if (err) return cb(err);
-        file.unzipPath = file.path;
-        file.path += options.ext;
-        file.s3.path += options.ext;
-        file.contents = buf;
-        cb(err, file);
-      });
-    }
-  });
-}</pre></li>
-    <li>example usage<pre class="apidocCodePre">...
-  var headers = {
-&#x27;Cache-Control&#x27;: &#x27;max-age=315360000, no-transform, public&#x27;
-// ...
-  };
-
-  return gulp.src(&#x27;./public/*.js&#x27;)
- // gzip, Set Content-Encoding headers and add .gz extension
-.pipe(awspublish.<span class="apidocCodeKeywordSpan">gzip</span>({ ext: &#x27;.gz&#x27; }))
-
-// publisher will add Content-Length, Content-Type and headers specified above
-// If not specified it will set x-amz-acl to public-read by default
-.pipe(publisher.publish(headers))
-
-// create a cache file to speed up consecutive uploads
-.pipe(publisher.cache())
-...</pre></li>
-    </ul>
-
-
-</div>
-
-<div class="apidocSectionDiv">
-<h1><a href="#apidoc.module.gulp-awspublish.reporter" id="apidoc.module.gulp-awspublish.reporter">module gulp-awspublish.reporter</a></h1>
-
-
-    <h2>
-        <a href="#apidoc.element.gulp-awspublish.reporter.reporter" id="apidoc.element.gulp-awspublish.reporter.reporter">
         function <span class="apidocSignatureSpan">gulp-awspublish.</span>reporter
         <span class="apidocSignatureSpan">(param)</span>
         </a>
