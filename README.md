@@ -1,6 +1,6 @@
 # npmdoc-gulp-awspublish
 
-#### api documentation for  [gulp-awspublish (v3.3.0)](https://github.com/pgherveou/gulp-awspublish)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-awspublish.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-awspublish) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-awspublish.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-awspublish)
+#### basic api documentation for  [gulp-awspublish (v3.3.0)](https://github.com/pgherveou/gulp-awspublish)  [![npm package](https://img.shields.io/npm/v/npmdoc-gulp-awspublish.svg?style=flat-square)](https://www.npmjs.org/package/npmdoc-gulp-awspublish) [![travis-ci.org build-status](https://api.travis-ci.org/npmdoc/node-npmdoc-gulp-awspublish.svg)](https://travis-ci.org/npmdoc/node-npmdoc-gulp-awspublish)
 
 #### gulp plugin to publish files to amazon s3
 
@@ -97,7 +97,8 @@
         "coveralls": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
         "test": "istanbul test _mocha --report html -- test/*.js --reporter spec"
     },
-    "version": "3.3.0"
+    "version": "3.3.0",
+    "bin": {}
 }
 ```
 
